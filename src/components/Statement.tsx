@@ -145,7 +145,7 @@ export function Statement() {
         );
       });
 
-      const marks = gsap.utils.toArray<HTMLElement>(".stmt-mark path", track);
+      const marks = gsap.utils.toArray<SVGPathElement>(".stmt-mark path", track);
       marks.forEach((path) => {
         const length = path.getTotalLength();
         gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
