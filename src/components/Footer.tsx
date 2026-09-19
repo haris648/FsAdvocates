@@ -1,80 +1,59 @@
-const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Practice Areas", href: "#practice-areas" },
-  { label: "Why Us", href: "#why-us" },
-  { label: "Contact", href: "#contact" },
+import { SpreadWordmark } from "./SpreadWordmark";
+
+const COLUMNS = [
+  {
+    title: "Firm",
+    links: ["About FS", "Values", "Why Us", "Careers"],
+  },
+  {
+    title: "Expertise",
+    links: ["Disputes", "Arbitration", "Corporate", "Real Estate", "Employment", "Private Client"],
+  },
+  {
+    title: "Resources",
+    links: ["Insights", "Book a Consultation", "Privacy Policy", "Terms"],
+  },
 ];
 
-// [DEMO PLACEHOLDER] contact details and social links are illustrative;
-// replace with the firm's verified information before the real build.
-export default function Footer() {
+export function Footer() {
   return (
-    <footer className="relative border-t hairline bg-ink px-6 pb-8 pt-20 md:px-12">
-      <div className="mx-auto flex max-w-6xl flex-col gap-16 md:flex-row md:justify-between">
-        <div className="max-w-sm">
-          <p className="font-serif text-2xl text-ivory">
-            Fareed Alhassan <span className="text-gold-soft">&amp;</span>
-            <br />
-            Legal Consultants
-          </p>
-          <p className="mt-5 text-sm font-light leading-relaxed text-ivory-dim">
-            Comprehensive legal services for individuals, businesses, and
-            institutions across the United Arab Emirates.
-          </p>
+    <footer className="overflow-clip bg-ivory-2 pt-[clamp(56px,9vh,110px)]">
+      <div className="wrap">
+        <div className="grid gap-10 border-b border-line pb-14 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
+          <div>
+            <p className="font-serif text-xl font-semibold text-navy">FS Advocates</p>
+            <p className="body-copy mt-3 max-w-[30ch] text-muted">
+              UAE counsel with a commercial perspective. Dubai, United Arab Emirates.
+            </p>
+          </div>
+          {COLUMNS.map((col) => (
+            <div key={col.title}>
+              <p className="mono-label font-bold text-bronze">{col.title}</p>
+              <ul className="mt-4 space-y-2.5">
+                {col.links.map((l) => (
+                  <li key={l}>
+                    <a href="#" className="mono-label text-muted hover:text-navy transition-colors">
+                      {l}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-12 sm:grid-cols-3">
-          <div>
-            <p className="eyebrow mb-5">Navigate</p>
-            <ul className="space-y-3">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-sm font-light text-ivory-dim transition-colors hover:text-gold-soft"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <p className="eyebrow mb-5">Contact</p>
-            <ul className="space-y-3 text-sm font-light text-ivory-dim">
-              <li>Dubai, United Arab Emirates</li>
-              <li>+971 (0) 4 000 0000</li>
-              <li>consultation@fareedalhassan.ae</li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="eyebrow mb-5">Follow</p>
-            <ul className="space-y-3 text-sm font-light text-ivory-dim">
-              <li>
-                <a href="#" className="transition-colors hover:text-gold-soft">
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href="#" className="transition-colors hover:text-gold-soft">
-                  Instagram
-                </a>
-              </li>
-            </ul>
-          </div>
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-3 py-6 border-b border-line">
+          <span className="mono-label text-muted">© {new Date().getFullYear()} FS Advocates &amp; Legal Consultants</span>
+          <span className="mono-label text-muted">Dubai, UAE</span>
+          <span className="mono-label text-muted ml-auto max-w-[46ch]">
+            This website provides general information only and does not constitute legal advice.
+            Contacting the firm does not create a lawyer-client relationship.
+          </span>
         </div>
       </div>
 
-      <div className="mx-auto mt-20 flex max-w-6xl flex-col items-center justify-between gap-4 border-t hairline pt-6 text-xs font-light text-ivory-dim/70 md:flex-row">
-        <span>
-          &copy; {new Date().getFullYear()} Fareed Alhassan Advocates and
-          Legal Consultants. All rights reserved.
-        </span>
-        <span className="text-ivory-dim/50">
-          Demo concept by Canary Digital Media
-        </span>
+      <div className="pt-3 pb-2">
+        <SpreadWordmark variant="footer" />
       </div>
     </footer>
   );

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# font source files — only the two weights actually wired into next/font/local
+# (src/fonts/*.otf) ship; the raw download and unused weight variants stay
+# local, not published (see licensing note in src/app/layout.tsx).
+/myriad-pro-cufonfonts.zip
+/font-source/

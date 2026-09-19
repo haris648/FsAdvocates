@@ -1,90 +1,96 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import MagneticButton from "./MagneticButton";
+import { useEffect, useState } from "react";
 
-const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Practice Areas", href: "#practice-areas" },
-  { label: "Why Us", href: "#why-us" },
-  { label: "Contact", href: "#contact" },
+const LINKS = [
+  { href: "#firm", label: "Firm" },
+  { href: "#expertise", label: "Expertise" },
+  { href: "#industries", label: "Industries" },
+  { href: "#people", label: "People" },
+  { href: "#insights", label: "Insights" },
+  { href: "#contact", label: "Contact" },
 ];
 
-export default function Header() {
+export function Header() {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-4 bg-gradient-to-b from-ink/80 to-transparent px-5 py-5 md:px-10 md:py-7">
-      <a
-        href="#top"
-        className="shrink-0 whitespace-nowrap font-serif text-xs tracking-[0.14em] uppercase text-ivory sm:text-sm lg:text-base"
-      >
-        F. Alhassan <span className="text-gold-soft">&amp;</span> Legal
-      </a>
+    <header className="fixed inset-x-0 top-0 z-[70] h-[64px] border-b hairline-on-navy bg-navy/92 backdrop-blur-md">
+      <div className="wrap flex h-full items-center gap-6">
+        <a href="#top" className="font-serif text-[19px] font-semibold text-ivory shrink-0">
+          FS <span className="mono-label align-middle text-bronze-light">Advocates</span>
+        </a>
 
-      <nav className="hidden items-center gap-6 lg:flex xl:gap-9">
-        {NAV_LINKS.map((link) => (
+        <nav className="ml-auto hidden md:flex items-center gap-6">
+          {LINKS.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="mono-label text-muted-on-navy transition-colors hover:text-champagne"
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="hidden md:flex items-center gap-4 pl-2">
+          <button type="button" className="mono-label text-muted-on-navy hover:text-champagne transition-colors">
+            EN <span className="opacity-40">|</span> عربي
+          </button>
           <a
-            key={link.href}
-            href={link.href}
-            className="eyebrow whitespace-nowrap text-ivory-dim hover:text-gold-soft transition-colors"
+            href="#contact"
+            className="mono-label inline-flex items-center border border-bronze bg-bronze px-4 py-[10px] text-navy-deep font-bold transition-colors hover:bg-champagne hover:border-champagne"
           >
-            {link.label}
+            Book a Consultation
           </a>
-        ))}
-        <MagneticButton href="#contact" className="!px-6 !py-3 !text-xs whitespace-nowrap">
-          Book a Consultation
-        </MagneticButton>
-      </nav>
+        </div>
 
-      <button
-        aria-label="Toggle menu"
-        className="lg:hidden relative z-50 h-9 w-9 shrink-0 flex flex-col items-center justify-center gap-1.5"
-        onClick={() => setOpen((v) => !v)}
-      >
-        <motion.span
-          animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-          className="block h-[2px] w-6 rounded-full bg-ivory"
-        />
-        <motion.span
-          animate={open ? { opacity: 0 } : { opacity: 1 }}
-          className="block h-[2px] w-6 rounded-full bg-ivory"
-        />
-        <motion.span
-          animate={open ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-          className="block h-[2px] w-6 rounded-full bg-ivory"
-        />
-      </button>
+        <button
+          type="button"
+          aria-label="Menu"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          className="ml-auto md:hidden text-ivory"
+        >
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+            {open ? (
+              <path d="M4 4 L18 18 M18 4 L4 18" stroke="currentColor" strokeWidth="1.6" />
+            ) : (
+              <path d="M2 6h18 M2 11h18 M2 16h18" stroke="currentColor" strokeWidth="1.4" />
+            )}
+          </svg>
+        </button>
+      </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-            exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            className="lg:hidden fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-ink"
+      {open && (
+        <div className="md:hidden fixed inset-x-0 top-[64px] bottom-0 bg-navy border-t hairline-on-navy px-6 py-8 flex flex-col gap-1 overflow-y-auto">
+          {LINKS.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="font-serif text-2xl text-ivory py-3 border-b hairline-on-navy"
+            >
+              {l.label}
+            </a>
+          ))}
+          <a
+            href="#contact"
+            onClick={() => setOpen(false)}
+            className="mono-label mt-6 inline-flex items-center justify-center border border-bronze bg-bronze px-5 py-3 text-navy-deep font-bold"
           >
-            {NAV_LINKS.map((link, i) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + i * 0.06 }}
-                className="font-serif text-3xl text-ivory"
-              >
-                {link.label}
-              </motion.a>
-            ))}
-            <MagneticButton href="#contact" onClick={() => setOpen(false)}>
-              Book a Consultation
-            </MagneticButton>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            Book a Consultation
+          </a>
+        </div>
+      )}
     </header>
   );
 }

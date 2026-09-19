@@ -1,141 +1,80 @@
-"use client";
+import { Reveal } from "./Reveal";
+import { SpreadWordmark } from "./SpreadWordmark";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import MagneticButton from "./MagneticButton";
+const SPECS = [
+  "Bilingual counsel · EN / AR",
+  "UAE onshore & DIFC",
+  "Advocacy + consultancy",
+  "Commercial perspective",
+];
 
-const HEADLINE_LINE_1 = ["Fareed", "Alhassan"];
-const HEADLINE_LINE_2 = ["Advocates", "&", "Legal", "Consultants"];
-
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.09, delayChildren: 0.3 },
-  },
-};
-
-const word = {
-  hidden: { y: "110%", opacity: 0 },
-  show: {
-    y: "0%",
-    opacity: 1,
-    transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const },
-  },
-};
-
-export default function Hero() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    function onScroll() {
-      setScrolled(window.scrollY > 60);
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center"
+      className="relative isolate flex min-h-[100svh] flex-col overflow-clip bg-navy pt-[100px] pb-10 md:pt-[128px]"
     >
-      {/* ambient background */}
-      <div className="pointer-events-none absolute inset-0">
-        <motion.div
-          className="absolute -top-1/3 left-1/2 h-[70vh] w-[70vh] -translate-x-1/2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(182,146,79,0.16) 0%, rgba(182,146,79,0) 70%)",
-          }}
-          animate={{ scale: [1, 1.15, 1], opacity: [0.8, 1, 0.8] }}
-          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-[-20%] right-[10%] h-[55vh] w-[55vh] rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(92,15,24,0.35) 0%, rgba(92,15,24,0) 70%)",
-          }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.6, 0.9, 0.6] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        />
-        <div className="noise-overlay" />
+      <div className="wrap grid flex-1 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="relative z-10 max-w-[560px]">
+          <Reveal>
+            <p className="mono-label text-bronze-light mb-5">FS Advocates &amp; Legal Consultants · Dubai, UAE</p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h1 className="font-serif font-semibold text-ivory leading-[1.05] text-[clamp(34px,4.6vw,64px)]">
+              Strategic legal counsel <em>for a changing world.</em>
+            </h1>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="body-copy mt-6 max-w-[42ch] text-muted-on-navy">
+              We advise businesses, investors and individuals across the UAE on disputes,
+              transactions and complex legal matters — built for people who need clear
+              direction, not legal complexity for its own sake.
+            </p>
+          </Reveal>
+          <Reveal delay={0.24}>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <a
+                href="#expertise"
+                className="mono-label inline-flex items-center border border-bronze bg-bronze px-5 py-[13px] text-navy-deep font-bold transition-colors hover:bg-champagne hover:border-champagne"
+              >
+                Explore Expertise
+              </a>
+              <a
+                href="#contact"
+                className="mono-label inline-flex items-center border border-ivory/30 px-5 py-[13px] text-ivory transition-colors hover:border-champagne hover:text-champagne"
+              >
+                Speak With Us
+              </a>
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.2} className="relative z-10">
+          <div className="relative aspect-[4/5] w-full max-w-[440px] mx-auto lg:mx-0 lg:ml-auto border border-line-on-navy">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-navy-deep/60 text-center px-8">
+              <span className="mono-label text-muted-on-navy">Firm photography</span>
+              <span className="font-serif italic text-champagne text-lg">
+                Dubai skyline &amp; office interior
+              </span>
+              <span className="mono-label text-muted-on-navy/70">pending client assets</span>
+            </div>
+            <span className="absolute -top-px -left-px h-6 w-6 border-t border-l border-bronze" />
+            <span className="absolute -bottom-px -right-px h-6 w-6 border-b border-r border-bronze" />
+          </div>
+        </Reveal>
       </div>
 
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.1 }}
-        className="eyebrow relative z-10 mb-8"
-      >
-        United Arab Emirates &mdash; Est. Legal Practice
-      </motion.p>
+      <Reveal delay={0.3} className="wrap relative z-10 mt-10 flex flex-wrap gap-x-9 gap-y-2 border-t hairline-on-navy pt-4">
+        {SPECS.map((s) => (
+          <span key={s} className="mono-label text-muted-on-navy">
+            {s}
+          </span>
+        ))}
+      </Reveal>
 
-      <h1 className="relative z-10 font-serif font-medium leading-[0.98] text-ivory">
-        <motion.span
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="flex flex-wrap justify-center gap-x-4 overflow-hidden text-[12vw] md:text-[6.4vw]"
-        >
-          {HEADLINE_LINE_1.map((w) => (
-            <span key={w} className="overflow-hidden py-1">
-              <motion.span variants={word} className="inline-block">
-                {w}
-              </motion.span>
-            </span>
-          ))}
-        </motion.span>
-        <motion.span
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="mt-1 flex flex-wrap justify-center gap-x-4 overflow-hidden text-[7vw] italic text-gold-soft md:text-[3.1vw]"
-        >
-          {HEADLINE_LINE_2.map((w) => (
-            <span key={w} className="overflow-hidden py-1">
-              <motion.span variants={word} className="inline-block">
-                {w}
-              </motion.span>
-            </span>
-          ))}
-        </motion.span>
-      </h1>
-
-      <motion.p
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 1.2 }}
-        className="text-balance relative z-10 mx-auto mt-10 max-w-xl text-base font-light text-ivory-dim md:text-lg"
-      >
-        Distinguished counsel for individuals, businesses, and institutions
-        across the UAE &mdash; where precedent meets discretion, and every
-        matter is argued with the full weight of the firm behind it.
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 1.4 }}
-        className="relative z-10 mt-12"
-      >
-        <MagneticButton href="#contact">Book a Consultation</MagneticButton>
-      </motion.div>
-
-      <motion.div
-        animate={{ opacity: scrolled ? 0 : 1 }}
-        transition={{ duration: 0.4 }}
-        className="absolute bottom-10 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3"
-      >
-        <span className="eyebrow !text-[0.62rem] !tracking-[0.28em]">Scroll</span>
-        <span className="relative h-12 w-px overflow-hidden bg-ivory-dim/25">
-          <motion.span
-            className="absolute left-0 top-0 h-1/2 w-full bg-gold-soft"
-            animate={{ y: ["-100%", "200%"] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </span>
-      </motion.div>
+      <div className="absolute inset-x-[-2%] bottom-0 z-0 translate-y-[38%]">
+        <SpreadWordmark variant="hero" />
+      </div>
     </section>
   );
 }

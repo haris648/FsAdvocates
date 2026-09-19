@@ -1,26 +1,38 @@
 import SmoothScroll from "@/components/SmoothScroll";
-import CustomCursor from "@/components/CustomCursor";
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import PracticeAreas from "@/components/PracticeAreas";
-import Differentiators from "@/components/Differentiators";
-import ConsultationCTA from "@/components/ConsultationCTA";
-import Footer from "@/components/Footer";
+import { Header } from "@/components/Header";
+import { Hero } from "@/components/Hero";
+import { Positioning } from "@/components/Positioning";
+import { CredibilityBar } from "@/components/CredibilityBar";
+import { Expertise } from "@/components/Expertise";
+import { HowWeWork } from "@/components/HowWeWork";
+import { Statement } from "@/components/Statement";
+import { People } from "@/components/People";
+import { Industries } from "@/components/Industries";
+import { Insights } from "@/components/Insights";
+import { ContactCTA } from "@/components/ContactCTA";
+import { Footer } from "@/components/Footer";
+import { TravellingPen } from "@/components/TravellingPen";
+import { MobileContactBar } from "@/components/MobileContactBar";
 
 export default function Home() {
   return (
     <SmoothScroll>
-      <CustomCursor />
+      <TravellingPen targetSelector="#site-main" />
       <Header />
-      <main>
+      <main id="site-main">
         <Hero />
-        <About />
-        <PracticeAreas />
-        <Differentiators />
-        <ConsultationCTA />
+        <Positioning />
+        <CredibilityBar />
+        <Expertise />
+        <HowWeWork />
+        <Statement />
+        <People />
+        <Industries />
+        <Insights />
+        <ContactCTA />
       </main>
       <Footer />
+      <MobileContactBar />
     </SmoothScroll>
   );
 }
